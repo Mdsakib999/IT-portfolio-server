@@ -19,23 +19,17 @@ app.use(cors("*"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// routes
-app.use('/api/auth', userRoute)
-
 app.get('/', (req, res) => {
     res.send({ message: "Hello from IT Solutions API" })
 })
 
 
 //routes
+app.use('/api/auth', userRoute)
 app.use("/api/services", serviceRoutes);
 app.use("/api/plans", planRoutes);
 app.use("/api/custom-plans", customPlanRoutes);
 app.use("/api/hire-requests", hireRequestRoutes);
-
-
-
-
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

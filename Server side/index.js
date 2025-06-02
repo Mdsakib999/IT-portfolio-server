@@ -1,7 +1,13 @@
 import express from "express";
 import dotnenv from 'dotenv'
 import cors from 'cors'
-import Stripe from "stripe";
+import connectDB from "./Config/ConnectDB.js";
+import serviceRoutes from "./Routes/ServiceRoute.js"
+import planRoutes from "./Routes/PlanRoute.js";
+import customPlanRoutes from "./Routes/CustomPlanRoutes.js";
+import hireRequestRoutes from "./Routes/HireRequestRoutes.js";
+
+
 
 dotnenv.config()
 
@@ -19,7 +25,18 @@ app.get('/', (req, res) => {
     res.send({ message: "Hello from IT Solutions API" })
 })
 
+
+//routes
+app.use("/api/services", serviceRoutes);
+app.use("/api/plans", planRoutes);
+app.use("/api/custom-plans", customPlanRoutes);
+app.use("/api/hire-requests", hireRequestRoutes);
+
+
+
+
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
-    // connectDB()
+    connectDB()
 })

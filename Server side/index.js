@@ -9,7 +9,7 @@ const port = process.env.PORT || 3001
 
 const app = express()
 
-// middlewares
+// middlewares 
 app.use(cors("*"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -21,5 +21,5 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
-    // connectDB()
+    // connectDB() server
 })

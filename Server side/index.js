@@ -6,8 +6,7 @@ import serviceRoutes from "./Routes/ServiceRoute.js"
 import planRoutes from "./Routes/PlanRoute.js";
 import customPlanRoutes from "./Routes/CustomPlanRoutes.js";
 import hireRequestRoutes from "./Routes/HireRequestRoutes.js";
-
-
+import userRoute from "./Routes/UserRoute.js";
 
 dotnenv.config()
 
@@ -15,11 +14,13 @@ const port = process.env.PORT || 3001
 
 const app = express()
 
-// middlewares
+// middlewares 
 app.use(cors("*"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// routes
+app.use('/api/auth', userRoute)
 
 app.get('/', (req, res) => {
     res.send({ message: "Hello from IT Solutions API" })

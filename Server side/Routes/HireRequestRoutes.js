@@ -8,7 +8,7 @@ import {
 
 const router = express.Router();
 
-// POST - Create hire request (optionally with user ID)
+// POST - Create hire request (with user ID)
 router.post("/:id", createHireRequest);
 
 // GET - Admin fetches all requests

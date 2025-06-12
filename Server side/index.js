@@ -7,6 +7,8 @@ import planRoutes from "./Routes/PlanRoute.js";
 import customPlanRoutes from "./Routes/CustomPlanRoutes.js";
 import hireRequestRoutes from "./Routes/HireRequestRoutes.js";
 import userRoute from "./Routes/UserRoute.js";
+import orderRoutes from "./Routes/OrderRoutes.js";
+import contactRoutes from "./Routes/ContactRoutes.js";
 
 dotnenv.config()
 
@@ -30,6 +32,9 @@ app.use("/api/services", serviceRoutes);
 app.use("/api/plans", planRoutes);
 app.use("/api/custom-plans", customPlanRoutes);
 app.use("/api/hire-requests", hireRequestRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api", contactRoutes);
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

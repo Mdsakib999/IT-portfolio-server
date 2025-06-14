@@ -43,6 +43,7 @@ const registerUser = async (req, res) => {
 const getUser = async (req, res) => {
     try {
         const uid = req.params.id;
+        console.log(uid)
         if (!uid) {
             return res.status(400).json({ message: "UID is required" });
         }

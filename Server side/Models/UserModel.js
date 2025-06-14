@@ -24,12 +24,6 @@ const userSchema = new mongoose.Schema(
             enum: ["user", "admin"],
             default: "user",
         },
-        orders: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Order",
-            },
-        ],
     },
     { timestamps: true }
 );

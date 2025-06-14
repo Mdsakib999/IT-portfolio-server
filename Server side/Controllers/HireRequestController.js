@@ -4,8 +4,8 @@ import { User } from "../Models/UserModel.js";
 // Create a hire request
 export const createHireRequest = async (req, res) => {
     try {
-        const { id } = req.params;
-        const { name, email, description } = req.body;
+
+        const { name, email, description, id } = req.body;
 
         if (!name || !email || !description) {
             return res.status(400).json({ message: "All fields are required." });

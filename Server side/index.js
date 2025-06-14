@@ -7,9 +7,14 @@ import planRoutes from "./Routes/PlanRoute.js";
 import customPlanRoutes from "./Routes/CustomPlanRoutes.js";
 import hireRequestRoutes from "./Routes/HireRequestRoutes.js";
 import userRoute from "./Routes/UserRoute.js";
+<<<<<<< HEAD
 import paymentRoute from "./Routes/paymentRoute.js";
 import orderRoute from "./Routes/OrderRoutes.js";
 import bodyParser from 'body-parser';
+=======
+import orderRoutes from "./Routes/OrderRoutes.js";
+import contactRoutes from "./Routes/ContactRoutes.js";
+>>>>>>> d547760600196a3bf1512bc6a9ddd354968334d7
 
 dotnenv.config()
 
@@ -37,8 +42,14 @@ app.use("/api/services", serviceRoutes);
 app.use("/api/plans", planRoutes);
 app.use("/api/custom-plans", customPlanRoutes);
 app.use("/api/hire-requests", hireRequestRoutes);
+<<<<<<< HEAD
 app.use("/api/payment", paymentRoute);
 app.use("/api/order", orderRoute);
+=======
+app.use("/api/orders", orderRoutes);
+app.use("/api", contactRoutes);
+
+>>>>>>> d547760600196a3bf1512bc6a9ddd354968334d7
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

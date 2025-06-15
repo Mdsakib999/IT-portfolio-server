@@ -32,6 +32,10 @@ const customPlanSchema = new mongoose.Schema(
             enum: ["pending", "approved", "rejected"],
             default: "pending",
         },
+        paymentStatus:{
+            type: String,
+            default: "pending"
+        }
     },
     { timestamps: true }
 );

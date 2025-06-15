@@ -7,6 +7,8 @@ import planRoutes from "./Routes/PlanRoute.js";
 import customPlanRoutes from "./Routes/CustomPlanRoutes.js";
 import hireRequestRoutes from "./Routes/HireRequestRoutes.js";
 import userRoute from "./Routes/UserRoute.js";
+import paymentRoute from "./Routes/paymentRoute.js";
+import bodyParser from 'body-parser';
 import orderRoutes from "./Routes/OrderRoutes.js";
 import contactRoutes from "./Routes/ContactRoutes.js";
 import bodyParser from 'body-parser';
@@ -37,7 +39,8 @@ app.use("/api/services", serviceRoutes);
 app.use("/api/plans", planRoutes);
 app.use("/api/custom-plans", customPlanRoutes);
 app.use("/api/hire-requests", hireRequestRoutes);
-app.use("/api/orders", orderRoutes);
+app.use("/api/payment", paymentRoute);
+app.use("/api/order", orderRoutes);
 app.use("/api", contactRoutes);
 
 

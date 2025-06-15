@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllOrders, getOrderByPaymentIntent, getUserOrders } from "../Controllers/OrderController.js";
+import { deleteOrder, getAllOrders, getOrderByPaymentIntent, getUserOrders, updateOrderStatus } from "../Controllers/OrderController.js";
 
 const router = express.Router();
 
@@ -7,6 +7,8 @@ const router = express.Router();
 router.get("/get-order", getOrderByPaymentIntent);
 router.get("/all-order", getAllOrders);
 router.get("/:id", getUserOrders);
+router.patch("/:id", updateOrderStatus);
+router.delete("/:id", deleteOrder);
 
 
 export default router;

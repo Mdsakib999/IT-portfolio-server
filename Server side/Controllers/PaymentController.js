@@ -10,9 +10,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const createPayment = async (req, res) => {
   try {
-    const { serviceId, planId, name, email, amount } = req.body;
+    const { serviceId, planId,customPlanId, planName = "custom plan", serviceName, name, email, amount , description} = req.body;
 
-    if (!serviceId || !planId || !name || !email || !amount) {
+    if (!name || !email || !amount) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -21,24 +21,35 @@ const createPayment = async (req, res) => {
     if (!user) return res.status(404).json({ message: "User not found" });
 
     // Find service and plan
-    const service = await Service.findById(serviceId);
-    const plan = await Plan.findById(planId);
+    let service, plan
+    if(serviceId && planId){
+      service = await Service.findById(serviceId) || null;
+      plan = await Plan.findById(planId) || null;
+    }
 
-    if (!service || !plan) {
-      return res.status(404).json({ message: "Service or Plan not found" });
+    const metadata = {
+      userId: user._id.toString(),
+      amount: amount.toString()
+    };
+
+    if (planId) metadata.planId = planId.toString();
+    if (serviceId) 
+      metadata.serviceId = serviceId.toString()
+    
+
+    if (planName) metadata.planName = planName;
+    if (serviceName) {
+      metadata.serviceName = serviceName;
+      metadata.planDescription = description;
+      metadata.customPlanId = customPlanId;
     }
 
     // Create Stripe PaymentIntent with metadata
     const paymentIntent = await stripe.paymentIntents.create({ 
       amount: amount * 100,
       currency: "usd",
-      description: `Payment for ${plan.title} under ${service.title}`,
-      metadata: {
-        serviceId,
-        planId,
-        userId: user._id.toString(), // Store IDs for later
-        amount: amount.toString()
-      },
+      description: (serviceId && planId)?`Payment for ${plan?.title} under ${service?.title}`:`Payment for ${planName} under ${serviceName}`,
+      metadata
     });
 
     return res.status(200).json({ 

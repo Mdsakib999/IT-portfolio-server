@@ -1,4 +1,4 @@
-import dotnenv from 'dotenv'
+import dotenv from 'dotenv' // Fixed typo: was 'dotnenv'
 import express from "express";
 import cors from 'cors'
 import connectDB from "./Config/ConnectDB.js";
@@ -12,25 +12,24 @@ import bodyParser from 'body-parser';
 import orderRoutes from "./Routes/OrderRoutes.js";
 import contactRoutes from "./Routes/ContactRoutes.js";
 
-dotnenv.config()
+dotenv.config()
 
 const port = process.env.PORT || 3001
 
 const app = express()
 
 // middlewares 
-app.use(cors("*"))
+app.use(cors())
 
 app.use('/api/payment/webhook', bodyParser.raw({ type: 'application/json' }));
 
-
+// Apply JSON parsing to all other routes
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.send({ message: "Hello from IT Solutions API" })
 })
-
 
 //routes
 app.use('/api/auth', userRoute)
@@ -41,7 +40,6 @@ app.use("/api/hire-requests", hireRequestRoutes);
 app.use("/api/payment", paymentRoute);
 app.use("/api/order", orderRoutes);
 app.use("/api", contactRoutes);
-
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

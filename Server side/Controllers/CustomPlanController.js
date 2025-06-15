@@ -70,7 +70,7 @@ export const updateCustomPlanStatus = async (req, res) => {
 // Get custom plans by user ID (user dashboard)
 export const getUserCustomPlans = async (req, res) => {
     try {
-        const { id } = req.params; // user ID
+        const { id } = req.params;
         const plans = await CustomPlan.find({ user: id }).sort({ createdAt: -1 });
 
         res.status(200).json(plans);

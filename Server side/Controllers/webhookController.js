@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 import dotenv from "dotenv";
 import { Order } from "../Models/OrderModel.js";
+import { CustomPlan } from "../Models/CustomPlanModel.js";
 
 dotenv.config();
 
@@ -28,26 +29,42 @@ const stripeWebhook = async (req, res) => {
 
     console.log("✅ PaymentIntent succeeded.", paymentIntent.id);
 
-    const serviceId = paymentIntent.metadata.serviceId;
-    const planId = paymentIntent.metadata.planId;
-    const userId = paymentIntent.metadata.userId;
-    const amount = parseFloat(paymentIntent.metadata.amount);
+    const serviceId = paymentIntent?.metadata?.serviceId;
+    const planId = paymentIntent?.metadata?.planId;
+    const userId = paymentIntent?.metadata?.userId;
+    const amount = parseFloat(paymentIntent?.metadata?.amount);
+    const planName = paymentIntent?.metadata?.planName;
+    const serviceName = paymentIntent?.metadata?.serviceName;
+    const planDescription = paymentIntent?.metadata?.planDescription;
+    const customPlanId = paymentIntent?.metadata?.customPlanId;
 
     // Create order after successful payment
-    const newOrder = new Order({ 
+    const newOrder = new Order({
       user: userId,
-      service: serviceId,
-      plan: planId,
+      service: serviceId || null,
+      plan: planId || null,
       price: amount,
       description: `Payment for plan under service`,
       stripePaymentIntentId: paymentIntent.id,
       paymentStatus: "succeeded",
       status: "completed",
+      planName,
+      serviceName,
+      planDescription,
     });
 
     await newOrder.save();
 
-    console.log("✅ Order successfully created.");
+    if (customPlanId) {
+      await CustomPlan.findByIdAndUpdate(customPlanId, {
+        paymentStatus: "paid",
+      });
+      console.log(
+        `✅ CustomPlan ${customPlanId} paymentStatus updated to paid.`
+      );
+    }
+
+    console.log("✅ Order successfully created.", newOrder);
   }
 
   res.status(200).json({ received: true });

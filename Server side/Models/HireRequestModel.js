@@ -10,7 +10,14 @@ const hireRequestSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-
+        service: {
+            type: String,
+            required: true
+        },
+        number: {
+            type: String,
+            required: true
+        },
         description: {
             type: String,
             required: true

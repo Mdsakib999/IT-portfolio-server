@@ -5,13 +5,13 @@ import { User } from "../Models/UserModel.js";
 export const createHireRequest = async (req, res) => {
     try {
 
-        const { name, email, description, id } = req.body;
+        const { name, email, description, service, number, id } = req.body;
 
-        if (!name || !email || !description) {
+        if (!name || !email || !description || !service || !number) {
             return res.status(400).json({ message: "All fields are required." });
         }
 
-        const requestData = { name, email, description };
+        const requestData = { name, email, description, service, number };
 
         if (id) {
             const user = await User.findById(id);

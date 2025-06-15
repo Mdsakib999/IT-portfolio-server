@@ -9,6 +9,7 @@ import hireRequestRoutes from "./Routes/HireRequestRoutes.js";
 import userRoute from "./Routes/UserRoute.js";
 import orderRoutes from "./Routes/OrderRoutes.js";
 import contactRoutes from "./Routes/ContactRoutes.js";
+import bodyParser from 'body-parser';
 
 dotnenv.config()
 
